@@ -1,8 +1,9 @@
 // src/components/Navbar.tsx
+import { FiAlignJustify } from "react-icons/fi";
 
-function Navbar() {
-    return 
-    <div>
-        
-    </div>;
+export default function Navbar() {
+    return (
+    <div id="navbar-button">
+        <FiAlignJustify />
+    </div>);
 }
