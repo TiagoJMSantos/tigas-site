@@ -1,0 +1,13 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "projects": "Projetos",
+    "games": "Jogos",
+    "experience": "Experiência",
+    "about": "Sobre"
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "description": "Aqui podes falar sobre a tua experiência e projetos."
+  }
+}
