@@ -1,56 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
-  --text: #9ca3af;
-  --text-h: #f3f4f6;
-  --bg: #16171d;
-  --border: #2e303a;
-  --code-bg: #1f2028;
-  --accent: #c084fc;
-  --accent-bg: rgba(192, 132, 252, 0.15);
-  --accent-border: rgba(192, 132, 252, 0.5);
-  --social-bg: rgba(47, 48, 58, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  
-  --bg-image: url('./assets/background1.png');
-  --sans: 'Jetbrains Mono', Roboto, sans-serif;
-  --heading: 'Inter', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
+  --bg: #f8fafc;
+  --text: #4b5563;
+  --text-h: #111827;
+  --border: #e5e7eb;
+  --code-bg: #f1f5f9;
+  --accent: #9333ea;
+  --accent-bg: rgba(147, 51, 234, 0.1);
+  --accent-border: rgba(147, 51, 234, 0.3);
+  --social-bg: rgba(229, 231, 235, 0.6);
+  --shadow: rgba(0, 0, 0, 0.08) 0 10px 15px -3px, rgba(0, 0, 0, 0.04) 0 4px 6px -2px;
+  --nav-bg: rgba(255, 255, 255, 0.9);
+  --nav-border: rgba(0, 0, 0, 0.08);
+  --nav-shadow: 0 0.4vw 1.5vw rgba(0, 0, 0, 0.05);
+  --nav-btn-text: #6b7280;       
+  --nav-pill-bg: #eceef0;           
+  --nav-pill-text: #111827;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro", sans-serif;
+  --mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
   color: var(--text);
-  background-image: var(--bg-image);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-color: var(--nav-bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   @media (max-width: 1024px) {
     font-size: 16px;
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light) {
+    --bg: #16171d;
     --text: #9ca3af;
     --text-h: #f3f4f6;
-    --bg: #16171d;
-    --bg-image: url('./assets/background2.png');
     --border: #2e303a;
     --code-bg: #1f2028;
     --accent: #c084fc;
     --accent-bg: rgba(192, 132, 252, 0.15);
     --accent-border: rgba(192, 132, 252, 0.5);
     --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+    --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+    --nav-bg: rgba(20, 22, 27, 0.88);
+    --nav-border: rgba(255, 255, 255, 0.08);
+    --nav-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --nav-btn-text: #9ca3af;
+    --nav-pill-bg: rgba(255, 255, 255, 0.12);
+    --nav-pill-text: #ffffff;
   }
 
   #social .button-icon {
@@ -58,11 +59,31 @@
   }
 }
 
+:root.dark, [data-theme="dark"] {
+  --bg: #16171d;
+  --bg-image: url('./assets/background1.png');
+  --text: #9ca3af;
+  --text-h: #f3f4f6;
+  --border: #2e303a;
+  --code-bg: #1f2028;
+  --accent: #c084fc;
+  --accent-bg: rgba(192, 132, 252, 0.15);
+  --accent-border: rgba(192, 132, 252, 0.5);
+  --social-bg: rgba(47, 48, 58, 0.5);
+  --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  --nav-bg: rgba(22, 23, 29, 0.7);
+  --nav-border: rgba(255, 255, 255, 0.1);
+  --nav-shadow: 0 0.55vw 1.39vw rgba(0, 0, 0, 0.45), 0 0.07vw 0.21vw rgba(0, 0, 0, 0.3);
+  --nav-btn-text: #f3f4f6;
+  --nav-btn-hover: rgba(255, 255, 255, 0.1);
+}
+
 #root {
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
+  align-items: center;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -73,8 +94,7 @@ body {
   margin: 0;
 }
 
-h1,
-h2 {
+h1, h2 {
   font-family: var(--heading);
   font-weight: 500;
   color: var(--text-h);
@@ -89,6 +109,7 @@ h1 {
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
@@ -98,12 +119,12 @@ h2 {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }
 
-code,
-.counter {
+code, .counter {
   font-family: var(--mono);
   display: inline-flex;
   border-radius: 4px;
