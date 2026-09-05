@@ -7,7 +7,7 @@ export function Navbar() {
     <div id="navbar-container">
         <NavLink 
             id="home" 
-            className={({ isActive }) => isActive ? 'navbar-button active' : 'navbar-button'}               
+            className={({ isActive }) => isActive ? 'navbar-button active' : 'navbar-button'}  
             to="/">{t('navbar.home')}
         </NavLink>
         <NavLink 

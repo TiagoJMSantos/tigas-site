@@ -17,6 +17,11 @@
   --nav-btn-text: #6b7280;       
   --nav-pill-bg: #eceef0;           
   --nav-pill-text: #111827;
+  --card-surface: rgba(255, 255, 255, 0.75);
+  --card-border-base: rgba(0, 0, 0, 0.08);
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --tag-bg: rgba(0, 0, 0, 0.05);
   --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro", sans-serif;
   --mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
@@ -35,8 +40,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not(.light) {
-    --bg: #16171d;
+  :root {
+    --bg: #090e1d;
     --text: #9ca3af;
     --text-h: #f3f4f6;
     --border: #2e303a;
@@ -46,12 +51,17 @@
     --accent-border: rgba(192, 132, 252, 0.5);
     --social-bg: rgba(47, 48, 58, 0.5);
     --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-    --nav-bg: rgba(20, 22, 27, 0.88);
+    --nav-bg: #0d1117;
     --nav-border: rgba(255, 255, 255, 0.08);
     --nav-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     --nav-btn-text: #9ca3af;
     --nav-pill-bg: rgba(255, 255, 255, 0.12);
     --nav-pill-text: #ffffff;
+    --card-surface: rgba(15, 23, 42, 0.75);
+    --card-border-base: rgba(255, 255, 255, 0.1);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --tag-bg: rgba(255, 255, 255, 0.06);
   }
 
   #social .button-icon {
