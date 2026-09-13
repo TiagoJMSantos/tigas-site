@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-//import { useTranslation } from 'react-i18next';
 
 const COLOURS = [
   '#3b82f6', 
@@ -40,7 +39,6 @@ interface ForkedCardProps {
 }
 
 export function Project() {
-  //const {t} = useTranslation();
   const repos = useCollectRepos();
   return (
     <main>

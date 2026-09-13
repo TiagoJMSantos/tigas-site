@@ -1,94 +1,103 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-:root {
+:root,
+:root.light,
+[data-theme="light"] {
   --bg: #f8fafc;
-  --text: #4b5563;
-  --text-h: #111827;
-  --border: #e5e7eb;
-  --code-bg: #f1f5f9;
-  --accent: #9333ea;
-  --accent-bg: rgba(147, 51, 234, 0.1);
-  --accent-border: rgba(147, 51, 234, 0.3);
-  --social-bg: rgba(229, 231, 235, 0.6);
-  --shadow: rgba(0, 0, 0, 0.08) 0 10px 15px -3px, rgba(0, 0, 0, 0.04) 0 4px 6px -2px;
-  --nav-bg: rgba(255, 255, 255, 0.9);
-  --nav-border: rgba(0, 0, 0, 0.08);
-  --nav-shadow: 0 0.4vw 1.5vw rgba(0, 0, 0, 0.05);
-  --nav-btn-text: #6b7280;       
-  --nav-pill-bg: #eceef0;           
-  --nav-pill-text: #111827;
-  --card-surface: rgba(255, 255, 255, 0.75);
-  --card-border-base: rgba(0, 0, 0, 0.08);
+  --text: #475569;
+  --text-h: #0f172a;
   --text-main: #1e293b;
   --text-muted: #64748b;
-  --tag-bg: rgba(0, 0, 0, 0.05);
-  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro", sans-serif;
-  --mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+  --border: rgba(147, 51, 234, 0.15);
+  --code-bg: #f1f5f9;
+  --accent: #9333ea;
+  --accent-bg: rgba(147, 51, 234, 0.08);
+  --accent-border: rgba(147, 51, 234, 0.3);
+  --social-bg: rgba(241, 245, 249, 0.8);
+  --tag-bg: #ede9fe;
+  --shadow:
+    rgba(15, 23, 42, 0.08) 0 10px 15px -3px,
+    rgba(147, 51, 234, 0.04) 0 4px 6px -2px;
+  --nav-bg: rgba(248, 250, 252, 0.85);
+  --nav-border: rgba(15, 23, 42, 0.08);
+  --nav-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+  --nav-btn-text: #64748b;
+  --nav-pill-bg: #f3e8ff;
+  --nav-pill-text: #9333ea;
+  --card-surface: rgba(255, 255, 255, 0.85);
+  --card-border-base: rgba(147, 51, 234, 0.12);
+  --sans: -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", "SF Pro Text", "SF Pro",
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --heading: -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", "SF Pro", sans-serif;
+  --mono: "JetBrains Mono", "Fira Code", "SF Mono",
+    ui-monospace, Menlo, Monaco, Consolas, monospace;
   font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
   color: var(--text);
-  background-color: var(--nav-bg);
+  background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #090e1d;
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-    --nav-bg: #0d1117;
-    --nav-border: rgba(255, 255, 255, 0.08);
-    --nav-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    --nav-btn-text: #9ca3af;
-    --nav-pill-bg: rgba(255, 255, 255, 0.12);
-    --nav-pill-text: #ffffff;
-    --card-surface: rgba(15, 23, 42, 0.75);
-    --card-border-base: rgba(255, 255, 255, 0.1);
+  :root:not(.light) {
+    --bg: #070712;
+    --text: #94a3b8;
+    --text-h: #ffffff;
     --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --tag-bg: rgba(255, 255, 255, 0.06);
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+    --text-muted: #64748b;
+    --border: rgba(184, 117, 251, 0.16);
+    --code-bg: #0d0e22;
+    --accent: #b875fb;
+    --accent-bg: rgba(184, 117, 251, 0.1);
+    --accent-border: rgba(184, 117, 251, 0.45);
+    --social-bg: rgba(20, 18, 40, 0.75);
+    --tag-bg: rgba(184, 117, 251, 0.12);
+    --shadow:
+      rgba(0, 0, 0, 0.7) 0 10px 25px -3px,
+      rgba(184, 117, 251, 0.1) 0 4px 10px -2px;
+    --card-surface: rgba(13, 14, 30, 0.85);
+    --card-border-base: rgba(184, 117, 251, 0.2);
+    --nav-bg: rgba(7, 7, 18, 0.9);
+    --nav-border: rgba(184, 117, 251, 0.15);
+    --nav-shadow: 0 4px 25px rgba(0, 0, 0, 0.75);
+    --nav-btn-text: #94a3b8;
+    --nav-pill-bg: rgba(184, 117, 251, 0.15);
+    --nav-pill-text: #b875fb;
   }
 }
 
-:root.dark, [data-theme="dark"] {
-  --bg: #16171d;
-  --bg-image: url('./assets/background1.png');
-  --text: #9ca3af;
-  --text-h: #f3f4f6;
-  --border: #2e303a;
-  --code-bg: #1f2028;
-  --accent: #c084fc;
-  --accent-bg: rgba(192, 132, 252, 0.15);
-  --accent-border: rgba(192, 132, 252, 0.5);
-  --social-bg: rgba(47, 48, 58, 0.5);
-  --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  --nav-bg: rgba(22, 23, 29, 0.7);
-  --nav-border: rgba(255, 255, 255, 0.1);
-  --nav-shadow: 0 0.55vw 1.39vw rgba(0, 0, 0, 0.45), 0 0.07vw 0.21vw rgba(0, 0, 0, 0.3);
-  --nav-btn-text: #f3f4f6;
-  --nav-btn-hover: rgba(255, 255, 255, 0.1);
+:root.dark,
+[data-theme="dark"] {
+  --bg: #070712;
+  --text: #94a3b8;
+  --text-h: #ffffff;
+  --text-main: #f8fafc;
+  --text-muted: #64748b;
+  --border: rgba(184, 117, 251, 0.16);
+  --code-bg: #0d0e22;
+  --accent: #b875fb;
+  --accent-bg: rgba(184, 117, 251, 0.1);
+  --accent-border: rgba(184, 117, 251, 0.45);
+  --social-bg: rgba(20, 18, 40, 0.75);
+  --tag-bg: rgba(184, 117, 251, 0.12);
+  --shadow:
+    rgba(0, 0, 0, 0.7) 0 10px 25px -3px,
+    rgba(184, 117, 251, 0.1) 0 4px 10px -2px;
+  --card-surface: rgba(13, 14, 30, 0.85);
+  --card-border-base: rgba(184, 117, 251, 0.2);
+  --nav-bg: rgba(7, 7, 18, 0.9);
+  --nav-border: rgba(184, 117, 251, 0.15);
+  --nav-shadow: 0 4px 25px rgba(0, 0, 0, 0.75);
+  --nav-btn-text: #94a3b8;
+  --nav-pill-bg: rgba(184, 117, 251, 0.15);
+  --nav-pill-text: #b875fb;
 }
 
 #root {
+  display: flex;
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
@@ -98,13 +107,15 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  overflow-y: scroll;
 }
 
 body {
   margin: 0;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-family: var(--heading);
   font-weight: 500;
   color: var(--text-h);
@@ -114,6 +125,7 @@ h1 {
   font-size: 56px;
   letter-spacing: -1.68px;
   margin: 32px 0;
+
   @media (max-width: 1024px) {
     font-size: 36px;
     margin: 20px 0;
@@ -125,6 +137,7 @@ h2 {
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
+
   @media (max-width: 1024px) {
     font-size: 20px;
   }
@@ -134,7 +147,8 @@ p {
   margin: 0;
 }
 
-code, .counter {
+code,
+.counter {
   font-family: var(--mono);
   display: inline-flex;
   border-radius: 4px;

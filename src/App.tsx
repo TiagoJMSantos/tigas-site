@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, About, Experience, Project, Games } from './pages';
 import { Navbar, SettingsButton } from './components';
 import './App.css'
-import './i18n';
 
 export default function App() {
   return (
