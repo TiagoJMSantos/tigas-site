@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { AiFillMoon, AiFillSun } from 'react-icons/ai';
+import { LuTerminal } from 'react-icons/lu';
 
 function useColourMode() {
     const [isDark, setIsDark] = useState<boolean>(() => {
@@ -47,18 +48,14 @@ export function Navbar() {
     return (
     <div id="navbar-container">
         <div className="navbar-name-container">
-            <div className='nav-name-accent'>tigas@</div>student:<div className='nav-name-accent'>~$</div> 
+            <LuTerminal className="navbar-terminal-icon" />
+            <span>tigas@student:~$</span>
         </div>
         <div className="buttons-container">
             <NavLink 
                 id="home" 
                 className={({ isActive }) => isActive ? 'navbar-button active' : 'navbar-button'}  
                 to="/">Home
-            </NavLink>
-            <NavLink 
-                id="about" 
-                className={({ isActive }) => isActive ? 'navbar-button active' : 'navbar-button'}
-                to="/about">About
             </NavLink>
             <NavLink 
                 id="projects" 
