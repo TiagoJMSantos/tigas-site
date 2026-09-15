@@ -1,4 +1,5 @@
 import { AiOutlineGithub, AiFillLinkedin, AiOutlineMail, AiOutlineDownload } from "react-icons/ai";
+import { LuGraduationCap, LuCodeXml, LuLeaf } from "react-icons/lu";
 import cvPdf from "../assets/Tiago_Santos_SWE_Intern_Resume.pdf";
 
 export function Home() {
@@ -106,11 +107,71 @@ export function Home() {
         </div>
       </section>
       <section id="about-section">
-        <p>This is the home page</p>
+        <div className="about-text-container">
+          <div className="about-tag">
+            <span className="section-dash">—</span> ABOUT ME
+          </div>
+          <h2 className="about-heading">
+            Passionate about systems, <br />
+            clean code & architecture.
+          </h2>
+          <p>
+            I believe great software comes from curiosity, strong fundamentals, and an obsession with detail. I enjoy diving deep into how systems work under the hood — from low-level logic to modern cloud infrastructure.
+          </p>
+          <p className="muted">
+            Always eager to tackle challenging problems, collaborate with driven teams, and turn complex ideas into robust, high-performance applications.
+          </p>
+        </div>
+
+        <div className="about-cards-container">
+          <div className="about-card">
+            <div className="about-card-icon">
+              <LuGraduationCap />
+            </div>
+            <div className="about-card-content">
+              <div className="about-card-header">
+                <span className="about-card-title">Education</span>
+                <span className="about-card-date">2025 — Expected 2028</span>
+              </div>
+              <div className="about-card-desc">
+                BSc in Computer Science & Engineering
+                <span className="about-card-subdesc">Instituto Superior Técnico - Taguspark</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="about-card">
+            <div className="about-card-icon">
+              <LuCodeXml />
+            </div>
+            <div className="about-card-content">
+              <div className="about-card-header">
+                <span className="about-card-title">Focus & Goal</span>
+              </div>
+              <div className="about-card-desc">
+                Build reliable backend software, scale systems, and gain high-impact engineering experience.
+              </div>
+            </div>
+          </div>
+
+          <div className="about-card">
+            <div className="about-card-icon">
+              <LuLeaf />
+            </div>
+            <div className="about-card-content">
+              <div className="about-card-header">
+                <span className="about-card-title">Currently Learning</span>
+              </div>
+              <div className="about-card-desc">
+                Backend Architecture • Databases • Distributed Systems
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
-      <section id="experience-section">
+      {/* <section id="experience-section">
         <p>This is the home page</p>
-      </section>
+      </section> */}
       <section id="projects-section">
         <p>This is the home page</p>
       </section>

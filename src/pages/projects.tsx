@@ -38,23 +38,6 @@ interface ForkedCardProps {
   index: number;
 }
 
-export function Project() {
-  const repos = useCollectRepos();
-  return (
-    <main>
-      <div className="repos-container">
-        {repos.map((repo, index) =>
-          repo.fork ? (
-            <ForkedRepoCard key={repo.id} repo={repo} index={index}/>
-          ) : (
-            <RepoCard key={repo.id} repo={repo} index={index} />
-          )
-        )}
-      </div>
-    </main>
-  );
-}
-
 function useCollectRepos() {
   const [repos, setRepos] = useState<Repo[]>(() => {
     const cachedRepos = sessionStorage.getItem('repos_t');
@@ -105,5 +88,24 @@ function ForkedRepoCard({ repo, index }: ForkedCardProps,) {
       style={{ '--accent-color': accentColor } as React.CSSProperties}>
       <h3>{originalOwner}/{repo.name}</h3>
     </div>
+  );
+}
+
+
+export function Project() {
+  const repos = useCollectRepos();
+  return (
+    <main>
+      <p>IN PROGRESS</p>
+      <div className="repos-container">
+        {repos.map((repo, index) =>
+          repo.fork ? (
+            <ForkedRepoCard key={repo.id} repo={repo} index={index}/>
+          ) : (
+            <RepoCard key={repo.id} repo={repo} index={index} />
+          )
+        )}
+      </div>
+    </main>
   );
 }
