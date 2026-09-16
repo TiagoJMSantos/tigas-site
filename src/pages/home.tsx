@@ -118,7 +118,7 @@ export function Home() {
                 title={copiedEmail ? "Email copiado!" : "Copiar email"}
               >
                 {copiedEmail ? <AiOutlineCheck className="copied-icon" /> : <AiOutlineMail />}
-                {copiedEmail && <span className="copy-tooltip">Copiado!</span>}
+                {copiedEmail && <span className="copy-tooltip">Copied!</span>}
               </button>
             )}
             {personal.cv?.file && (
