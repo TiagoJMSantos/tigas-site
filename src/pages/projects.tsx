@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import siteConfig from '../config';
 
 const COLOURS = [
   '#3b82f6', 
@@ -18,6 +19,7 @@ const COLOURS = [
   '#2563eb', 
   '#d946ef', 
 ];
+
 interface Repo {
   id: number;
   name: string;
@@ -26,8 +28,9 @@ interface Repo {
   fork: boolean;
   owner: {
     login: string;
-  }
+  };
 }
+
 interface RepoCardProps {
   repo: Repo;
   index: number;
@@ -36,43 +39,59 @@ interface RepoCardProps {
 interface ForkedCardProps {
   repo: Repo;
   index: number;
+  githubUsername: string;
 }
 
-function useCollectRepos() {
+function useCollectRepos(username: string) {
   const [repos, setRepos] = useState<Repo[]>(() => {
-    const cachedRepos = sessionStorage.getItem('repos_t');
+    const cachedRepos = sessionStorage.getItem(`repos_${username}`);
     return cachedRepos ? JSON.parse(cachedRepos) : [];
   });
+
   useEffect(() => {
-    if (repos.length > 0) return;
-    fetch('https://api.github.com/users/TiagoJMSantos/repos')
+    if (!username || repos.length > 0) return;
+    fetch(`https://api.github.com/users/${username}/repos`)
       .then(res => res.json())
       .then(data => {
-        sessionStorage.setItem('repos_t', JSON.stringify(data));
-        setRepos(data);
+        if (Array.isArray(data)) {
+          sessionStorage.setItem(`repos_${username}`, JSON.stringify(data));
+          setRepos(data);
+        }
+      })
+      .catch(err => {
+        console.error("Failed to fetch GitHub repos:", err);
       });
-  }, [repos.length]);
+  }, [repos.length, username]);
+
   return repos;
 }
 
 function RepoCard({ repo, index }: RepoCardProps) {
   const accentColor = COLOURS[index % COLOURS.length];
   return (
-    <div className="repo-card" style={{ '--accent-color': accentColor } as React.CSSProperties}>
+    <a 
+      href={repo.html_url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="repo-card" 
+      style={{ '--accent-color': accentColor } as React.CSSProperties}
+    >
       <h3>{repo.owner.login}/{repo.name}</h3>
-    </div>
+      {repo.description && <p className="repo-desc">{repo.description}</p>}
+    </a>
   );
 }
 
-function ForkedRepoCard({ repo, index }: ForkedCardProps,) {
+function ForkedRepoCard({ repo, index, githubUsername }: ForkedCardProps) {
   const cacheKey = `fork_owner_${repo.name}`;
   const [originalOwner, setOriginalOwner] = useState<string | null>(() => {
     return sessionStorage.getItem(cacheKey);
   });
   const accentColor = COLOURS[index % COLOURS.length];
+
   useEffect(() => {
-    if (originalOwner) return;
-    fetch(`https://api.github.com/repos/TiagoJMSantos/${repo.name}`)
+    if (originalOwner || !githubUsername) return;
+    fetch(`https://api.github.com/repos/${githubUsername}/${repo.name}`)
       .then(res => res.json())
       .then(data => {
         const ownerLogin = data.parent?.owner?.login;
@@ -80,27 +99,42 @@ function ForkedRepoCard({ repo, index }: ForkedCardProps,) {
           sessionStorage.setItem(cacheKey, ownerLogin);
           setOriginalOwner(ownerLogin);
         }
+      })
+      .catch(err => {
+        console.error("Failed to fetch forked repo info:", err);
       });
-  }, [repo.name, originalOwner, cacheKey]);
+  }, [repo.name, originalOwner, cacheKey, githubUsername]);
+
   return (
-    <div 
+    <a 
+      href={repo.html_url}
+      target="_blank"
+      rel="noopener noreferrer"
       className="repo-card card-fork" 
-      style={{ '--accent-color': accentColor } as React.CSSProperties}>
-      <h3>{originalOwner}/{repo.name}</h3>
-    </div>
+      style={{ '--accent-color': accentColor } as React.CSSProperties}
+    >
+      <h3>{originalOwner || repo.owner.login}/{repo.name}</h3>
+      {repo.description && <p className="repo-desc">{repo.description}</p>}
+    </a>
   );
 }
 
-
 export function Project() {
-  const repos = useCollectRepos();
+  const githubUsername = siteConfig.socials.githubUsername;
+  const repos = useCollectRepos(githubUsername);
+
   return (
     <main>
-      <p>IN PROGRESS</p>
+      <p>{siteConfig.projectsPage.tagline}</p>
       <div className="repos-container">
         {repos.map((repo, index) =>
           repo.fork ? (
-            <ForkedRepoCard key={repo.id} repo={repo} index={index}/>
+            <ForkedRepoCard 
+              key={repo.id} 
+              repo={repo} 
+              index={index} 
+              githubUsername={githubUsername}
+            />
           ) : (
             <RepoCard key={repo.id} repo={repo} index={index} />
           )

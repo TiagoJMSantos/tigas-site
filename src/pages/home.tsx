@@ -1,59 +1,110 @@
 import { AiOutlineGithub, AiFillLinkedin, AiOutlineMail, AiOutlineDownload } from "react-icons/ai";
-import { LuGraduationCap, LuCodeXml, LuLeaf } from "react-icons/lu";
-import cvPdf from "../assets/Tiago_Santos_SWE_Intern_Resume.pdf";
+import { 
+  LuGraduationCap, 
+  LuCodeXml, 
+  LuLeaf, 
+  LuDatabase, 
+  LuWrench, 
+  LuSparkles, 
+  LuExternalLink, 
+  LuFolderGit2 
+} from "react-icons/lu";
+import siteConfig from "../config";
 
 export function Home() {
+  const { 
+    personal, 
+    socials, 
+    terminal, 
+    about, 
+    featuredProject, 
+    skills 
+  } = siteConfig;
+
+  const renderAboutIcon = (iconType: string) => {
+    switch (iconType) {
+      case 'education':
+        return <LuGraduationCap />;
+      case 'focus':
+        return <LuCodeXml />;
+      case 'learning':
+        return <LuLeaf />;
+      default:
+        return <LuCodeXml />;
+    }
+  };
+
+  const renderSkillCategoryIcon = (index: number) => {
+    switch (index) {
+      case 0:
+        return <LuCodeXml />;
+      case 1:
+        return <LuDatabase />;
+      case 2:
+        return <LuWrench />;
+      case 3:
+        return <LuSparkles />;
+      default:
+        return <LuCodeXml />;
+    }
+  };
+
   return (
     <main>
+      {/* Hero Section */}
       <section id="home-section">
         <div className="home-text-container">
-          <div className="home-tag">Computer Science & Engineering Student</div>
+          <div className="home-tag">{personal.tagline}</div>
           <div className="home-name">
-            Hey, I'm <span className="home-accent-text">Tigas.</span>
+            Hey, I'm <span className="home-accent-text">{personal.nickname}.</span>
           </div>
-          <p>
-            I'm a Computer Engineering student, passionate about building things with technology and solving real-world problems.
-          </p>
-          <p className="muted">
-            Currently focused on learning backend development, exploring systems, databases and the technologies that power the web.
-          </p>
+          <p>{personal.bioParagraph1}</p>
+          <p className="muted">{personal.bioParagraph2}</p>
           <div className="home-socials-container">
-            <a 
-              className="home-button" 
-              href="https://www.linkedin.com/in/tiago-santos-513816398/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-            >
-              <AiFillLinkedin />
-            </a>
-            <a 
-              className="home-button" 
-              href="https://www.github.com/TiagoJMSantos" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-            >
-              <AiOutlineGithub />
-            </a>
-            <a 
-              className="home-button" 
-              href="mailto:tjmsantos07@gmail.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              aria-label="Email"
-            >
-              <AiOutlineMail />
-            </a>
-            <a 
-              className="home-cv-download" 
-              href={cvPdf} 
-              download="Tiago_Santos_SWE_Intern_Resume.pdf"
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <AiOutlineDownload style={{ fontSize: "1.4vw" }} /> Download CV
-            </a>
+            {socials.linkedin && (
+              <a 
+                className="home-button" 
+                href={socials.linkedin} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
+                <AiFillLinkedin />
+              </a>
+            )}
+            {socials.github && (
+              <a 
+                className="home-button" 
+                href={socials.github} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+              >
+                <AiOutlineGithub />
+              </a>
+            )}
+            {socials.email && (
+              <a 
+                className="home-button" 
+                href={`mailto:${socials.email}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Email"
+              >
+                <AiOutlineMail />
+              </a>
+            )}
+            {personal.cv?.file && (
+              <a 
+                className="home-cv-download" 
+                href={personal.cv.file} 
+                download={personal.cv.downloadName}
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <AiOutlineDownload style={{ fontSize: "1.4vw" }} /> {personal.cv.buttonText}
+              </a>
+            )}
           </div>
         </div>
         <div className="home-terminal-container">
@@ -63,120 +114,159 @@ export function Home() {
               <span className="terminal-dot minimize"></span>
               <span className="terminal-dot maximize"></span>
             </div>
-            <div className="terminal-title">tigas@student:~</div>
+            <div className="terminal-title">{terminal.prompt.replace(':~$', ':~')}</div>
           </div>
           <div className="terminal-content">
             <div className="terminal-block">
               <div className="terminal-line">
-                <span className="terminal-prompt">tigas@student:~$</span>
+                <span className="terminal-prompt">{terminal.prompt}</span>
                 <span className="terminal-command">whoami</span>
               </div>
-              <div className="terminal-output">tigas</div>
+              <div className="terminal-output">{terminal.commands.whoami}</div>
             </div>
 
             <div className="terminal-block">
               <div className="terminal-line">
-                <span className="terminal-prompt">tigas@student:~$</span>
+                <span className="terminal-prompt">{terminal.prompt}</span>
                 <span className="terminal-command">skills --summary</span>
               </div>
               <div className="terminal-output terminal-list">
-                <div>- Learning</div>
-                <div>- Building</div>
-                <div>- Exploring</div>
-                <div>- Improving</div>
+                {terminal.commands.skillsSummary.map((item, index) => (
+                  <div key={index}>- {item}</div>
+                ))}
               </div>
             </div>
 
             <div className="terminal-block">
               <div className="terminal-line">
-                <span className="terminal-prompt">tigas@student:~$</span>
+                <span className="terminal-prompt">{terminal.prompt}</span>
                 <span className="terminal-command">status</span>
               </div>
               <div className="terminal-output">
-                Student <span className="terminal-separator">•</span> Open to opportunities
+                {terminal.commands.status}
               </div>
             </div>
 
             <div className="terminal-block">
               <div className="terminal-line">
-                <span className="terminal-prompt">tigas@student:~$</span>
+                <span className="terminal-prompt">{terminal.prompt}</span>
                 <span className="terminal-cursor"></span>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* About Section */}
       <section id="about-section">
         <div className="about-text-container">
           <div className="about-tag">
-            <span className="section-dash">—</span> ABOUT ME
+            <span className="section-dash">—</span> {about.tag}
           </div>
           <h2 className="about-heading">
-            Passionate about systems, <br />
-            clean code & architecture.
+            {about.heading}
           </h2>
-          <p>
-            I believe great software comes from curiosity, strong fundamentals, and an obsession with detail. I enjoy diving deep into how systems work under the hood — from low-level logic to modern cloud infrastructure.
-          </p>
-          <p className="muted">
-            Always eager to tackle challenging problems, collaborate with driven teams, and turn complex ideas into robust, high-performance applications.
-          </p>
+          {about.paragraphs.map((p, idx) => (
+            <p key={idx} className={idx > 0 ? "muted" : ""}>
+              {p}
+            </p>
+          ))}
         </div>
 
         <div className="about-cards-container">
-          <div className="about-card">
-            <div className="about-card-icon">
-              <LuGraduationCap />
-            </div>
-            <div className="about-card-content">
-              <div className="about-card-header">
-                <span className="about-card-title">Education</span>
-                <span className="about-card-date">2025 — Expected 2028</span>
+          {about.cards.map((card) => (
+            <div key={card.id} className="about-card">
+              <div className="about-card-icon">
+                {renderAboutIcon(card.icon)}
               </div>
-              <div className="about-card-desc">
-                BSc in Computer Science & Engineering
-                <span className="about-card-subdesc">Instituto Superior Técnico - Taguspark</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="about-card">
-            <div className="about-card-icon">
-              <LuCodeXml />
-            </div>
-            <div className="about-card-content">
-              <div className="about-card-header">
-                <span className="about-card-title">Focus & Goal</span>
-              </div>
-              <div className="about-card-desc">
-                Build reliable backend software, scale systems, and gain high-impact engineering experience.
+              <div className="about-card-content">
+                <div className="about-card-header">
+                  <span className="about-card-title">{card.title}</span>
+                  {card.date && <span className="about-card-date">{card.date}</span>}
+                </div>
+                <div className="about-card-desc">
+                  {card.desc}
+                  {card.subdesc && (
+                    <span className="about-card-subdesc">{card.subdesc}</span>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="about-card">
-            <div className="about-card-icon">
-              <LuLeaf />
-            </div>
-            <div className="about-card-content">
-              <div className="about-card-header">
-                <span className="about-card-title">Currently Learning</span>
-              </div>
-              <div className="about-card-desc">
-                Backend Architecture • Databases • Distributed Systems
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
-      {/* <section id="experience-section">
-        <p>This is the home page</p>
-      </section> */}
+
+      {/* Projects & Skills Section */}
       <section id="projects-section">
-        <p>This is the home page</p>
-      </section>
-      <section id="skills-section">
-        <p>This is the home page</p>
+        <div className="project-tag">
+          <span className="section-dash">—</span> {featuredProject.tag}
+        </div>
+        <div className="proj-bottom-container">
+          {/* Left Column: Featured Project */}
+          <div className="single-project-container">
+            <div className="sproj-header">
+              <div className="sproj-icon">
+                <LuFolderGit2 />
+              </div>
+              <div className="sproj-title-indev">
+                <h3>{featuredProject.project.title}</h3>
+                <span className="sproj-status">{featuredProject.project.status}</span>
+              </div>
+            </div>
+
+            <div className="sproj-description">
+              <p>{featuredProject.project.description}</p>
+            </div>
+
+            {featuredProject.project.technologies && featuredProject.project.technologies.length > 0 && (
+              <div className="sproj-tags">
+                {featuredProject.project.technologies.map((tech, idx) => (
+                  <span key={idx} className="sproj-tech-tag">{tech}</span>
+                ))}
+              </div>
+            )}
+
+            <div className="sproj-spacer" />
+
+            <div className="sproj-buttons">
+              <a 
+                className="sproj-github-button"
+                href={featuredProject.project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <AiOutlineGithub className="sproj-btn-icon" />
+                {featuredProject.project.buttonText}
+                <LuExternalLink className="sproj-btn-arrow" />
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column: Skills */}
+          <div className="skills-cards-container">
+            {skills.map((cat, idx) => (
+              <div key={cat.id} className="skills-container" id={`skill-${cat.id}`}>
+                <div className="skills-card">
+                  <div className="skills-logo">
+                    {renderSkillCategoryIcon(idx)}
+                  </div>
+                  <div className="skills-info">
+                    <div className="skills-title">
+                      {cat.title}
+                    </div>
+                    <div className="skills-tags-list">
+                      {cat.skills.map((skill, sIdx) => (
+                        <span key={sIdx} className="skill-pill">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
     </main>
   );

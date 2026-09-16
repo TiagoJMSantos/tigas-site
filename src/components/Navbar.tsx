@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { AiFillMoon, AiFillSun } from 'react-icons/ai';
 import { LuTerminal } from 'react-icons/lu';
+import siteConfig from '../config';
 
 function useColourMode() {
     const [isDark, setIsDark] = useState<boolean>(() => {
@@ -42,14 +43,13 @@ function useColourMode() {
     return { isDark, toggleTheme };
 }
 
-
 export function Navbar() {
     const { isDark, toggleTheme } = useColourMode();
     return (
     <div id="navbar-container">
         <div className="navbar-name-container">
             <LuTerminal className="navbar-terminal-icon" />
-            <span>tigas@student:~$</span>
+            <span>{siteConfig.terminal.prompt}</span>
         </div>
         <div className="buttons-container">
             <NavLink 
@@ -79,4 +79,3 @@ export function Navbar() {
     </div>
     );
 }
-
