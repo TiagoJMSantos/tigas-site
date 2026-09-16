@@ -1,4 +1,5 @@
-import { AiOutlineGithub, AiFillLinkedin, AiOutlineMail, AiOutlineDownload } from "react-icons/ai";
+import { useState } from "react";
+import { AiOutlineGithub, AiFillLinkedin, AiOutlineMail, AiOutlineDownload, AiOutlineCheck } from "react-icons/ai";
 import { 
   LuGraduationCap, 
   LuCodeXml, 
@@ -12,6 +13,8 @@ import {
 import siteConfig from "../config";
 
 export function Home() {
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
   const { 
     personal, 
     socials, 
@@ -20,6 +23,29 @@ export function Home() {
     featuredProject, 
     skills 
   } = siteConfig;
+
+  const handleCopyEmail = async () => {
+    if (!socials.email) return;
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(socials.email);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = socials.email;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+      }
+      setCopiedEmail(true);
+      setTimeout(() => setCopiedEmail(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy email:", err);
+    }
+  };
 
   const renderAboutIcon = (iconType: string) => {
     switch (iconType) {
@@ -84,15 +110,16 @@ export function Home() {
               </a>
             )}
             {socials.email && (
-              <a 
-                className="home-button" 
-                href={`mailto:${socials.email}`} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="Email"
+              <button 
+                type="button"
+                className={`home-button email-copy-button ${copiedEmail ? "copied" : ""}`} 
+                onClick={handleCopyEmail}
+                aria-label={copiedEmail ? "Email copiado!" : "Copiar email"}
+                title={copiedEmail ? "Email copiado!" : "Copiar email"}
               >
-                <AiOutlineMail />
-              </a>
+                {copiedEmail ? <AiOutlineCheck className="copied-icon" /> : <AiOutlineMail />}
+                {copiedEmail && <span className="copy-tooltip">Copiado!</span>}
+              </button>
             )}
             {personal.cv?.file && (
               <a 
