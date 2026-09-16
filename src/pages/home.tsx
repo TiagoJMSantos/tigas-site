@@ -114,8 +114,6 @@ export function Home() {
                 type="button"
                 className={`home-button email-copy-button ${copiedEmail ? "copied" : ""}`} 
                 onClick={handleCopyEmail}
-                aria-label={copiedEmail ? "Email copiado!" : "Copiar email"}
-                title={copiedEmail ? "Email copiado!" : "Copiar email"}
               >
                 {copiedEmail ? <AiOutlineCheck className="copied-icon" /> : <AiOutlineMail />}
                 {copiedEmail && <span className="copy-tooltip">Copied!</span>}
