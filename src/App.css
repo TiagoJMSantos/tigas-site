@@ -900,22 +900,66 @@ section {
 }
 
 .repo-card {
-  height: 12vw;
+  min-height: 12vw;
+  height: auto;
   border-radius: 0.6vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
   z-index: 1;
-  overflow: hidden;
   padding: 1vw;
   border: 0.08vw solid color-mix(in srgb,var(--accent-color) 35%,#334155);
   color: white;
+  text-decoration: none;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(6px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .repo-card:hover {
+  transform: translateY(-2px);
   border-color: color-mix(in srgb, var(--accent-color) 50%, #1e293b);
   box-shadow: 0 8px 30px -4px color-mix(in srgb, var(--accent-color) 20%, rgba(0, 0, 0, 0.7));
+}
+
+.repo-card-top {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vw;
+}
+
+.repo-card h3 {
+  font-size: 1.1vw;
+  font-weight: 600;
+  margin: 0;
+  word-break: break-word;
+}
+
+.repo-desc {
+  font-size: 0.8vw !important;
+  line-height: 1.4 !important;
+  color: var(--text-muted, #94a3b8) !important;
+  margin: 0 !important;
+  max-width: 100% !important;
+}
+
+.repo-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35vw;
+  margin-top: 0.8vw;
+}
+
+.repo-topic-pill {
+  font-family: var(--mono);
+  font-size: 0.65vw;
+  padding: 0.15vw 0.45vw;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--accent-color) 15%, transparent);
+  color: color-mix(in srgb, var(--accent-color) 85%, #f8fafc);
+  border: 0.05vw solid color-mix(in srgb, var(--accent-color) 35%, transparent);
+  white-space: nowrap;
 }
 
 /* Paragraphs & Headers */
@@ -1000,11 +1044,32 @@ p {
   .repos-container {
     grid-template-columns: repeat(2, 1fr);
     height: auto;
+    gap: 16px;
   }
 
   .repo-card {
     height: auto;
     min-height: 120px;
+    padding: 14px;
+    border-radius: 8px;
+  }
+
+  .repo-card h3 {
+    font-size: 15px;
+  }
+
+  .repo-desc {
+    font-size: 13px !important;
+  }
+
+  .repo-topics {
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .repo-topic-pill {
+    font-size: 11px;
+    padding: 2px 8px;
   }
 }
 

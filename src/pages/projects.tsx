@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import siteConfig from '../config';
 
 const COLOURS = [
   '#3b82f6', 
@@ -20,15 +19,17 @@ const COLOURS = [
   '#d946ef', 
 ];
 
-interface Repo {
+export interface Repo {
   id: number;
   name: string;
   html_url: string;
-  description: string;
+  description: string | null;
   fork: boolean;
   owner: {
     login: string;
   };
+  topics?: string[];
+  originalOwner?: string;
 }
 
 interface RepoCardProps {
@@ -39,31 +40,35 @@ interface RepoCardProps {
 interface ForkedCardProps {
   repo: Repo;
   index: number;
-  githubUsername: string;
 }
 
-function useCollectRepos(username: string) {
-  const [repos, setRepos] = useState<Repo[]>(() => {
-    const cachedRepos = sessionStorage.getItem(`repos_${username}`);
-    return cachedRepos ? JSON.parse(cachedRepos) : [];
-  });
+function useProjects() {
+  const [repos, setRepos] = useState<Repo[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!username || repos.length > 0) return;
-    fetch(`https://api.github.com/users/${username}/repos`)
-      .then(res => res.json())
-      .then(data => {
+    const basePath = import.meta.env.BASE_URL.endsWith('/')
+      ? import.meta.env.BASE_URL
+      : `${import.meta.env.BASE_URL}/`;
+    fetch(`${basePath}projects.json`)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((data: Repo[]) => {
         if (Array.isArray(data)) {
-          sessionStorage.setItem(`repos_${username}`, JSON.stringify(data));
           setRepos(data);
         }
       })
       .catch(err => {
-        console.error("Failed to fetch GitHub repos:", err);
+        console.error('Failed to load projects.json:', err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  }, [repos.length, username]);
+  }, []);
 
-  return repos;
+  return { repos, loading };
 }
 
 function RepoCard({ repo, index }: RepoCardProps) {
@@ -76,35 +81,26 @@ function RepoCard({ repo, index }: RepoCardProps) {
       className="repo-card" 
       style={{ '--accent-color': accentColor } as React.CSSProperties}
     >
-      <h3>{repo.owner.login}/{repo.name}</h3>
-      {repo.description && <p className="repo-desc">{repo.description}</p>}
+      <div className="repo-card-top">
+        <h3>{repo.owner.login}/{repo.name}</h3>
+        {repo.description && <p className="repo-desc">{repo.description}</p>}
+      </div>
+      {repo.topics && repo.topics.length > 0 && (
+        <div className="repo-topics">
+          {repo.topics.map(topic => (
+            <span key={topic} className="repo-topic-pill">
+              #{topic}
+            </span>
+          ))}
+        </div>
+      )}
     </a>
   );
 }
 
-function ForkedRepoCard({ repo, index, githubUsername }: ForkedCardProps) {
-  const cacheKey = `fork_owner_${repo.name}`;
-  const [originalOwner, setOriginalOwner] = useState<string | null>(() => {
-    return sessionStorage.getItem(cacheKey);
-  });
+function ForkedRepoCard({ repo, index }: ForkedCardProps) {
   const accentColor = COLOURS[index % COLOURS.length];
-
-  useEffect(() => {
-    if (originalOwner || !githubUsername) return;
-    fetch(`https://api.github.com/repos/${githubUsername}/${repo.name}`)
-      .then(res => res.json())
-      .then(data => {
-        const ownerLogin = data.parent?.owner?.login;
-        if (ownerLogin) {
-          sessionStorage.setItem(cacheKey, ownerLogin);
-          setOriginalOwner(ownerLogin);
-        }
-      })
-      .catch(err => {
-        console.error("Failed to fetch forked repo info:", err);
-      });
-  }, [repo.name, originalOwner, cacheKey, githubUsername]);
-
+  const owner = repo.originalOwner || repo.owner.login;
   return (
     <a 
       href={repo.html_url}
@@ -113,33 +109,44 @@ function ForkedRepoCard({ repo, index, githubUsername }: ForkedCardProps) {
       className="repo-card card-fork" 
       style={{ '--accent-color': accentColor } as React.CSSProperties}
     >
-      <h3>{originalOwner || repo.owner.login}/{repo.name}</h3>
-      {repo.description && <p className="repo-desc">{repo.description}</p>}
+      <div className="repo-card-top">
+        <h3>{owner}/{repo.name}</h3>
+        {repo.description && <p className="repo-desc">{repo.description}</p>}
+      </div>
+      {repo.topics && repo.topics.length > 0 && (
+        <div className="repo-topics">
+          {repo.topics.map(topic => (
+            <span key={topic} className="repo-topic-pill">
+              #{topic}
+            </span>
+          ))}
+        </div>
+      )}
     </a>
   );
 }
 
 export function Project() {
-  const githubUsername = siteConfig.socials.githubUsername;
-  const repos = useCollectRepos(githubUsername);
-
+  const { repos, loading } = useProjects();
   return (
     <main>
-      <p>{siteConfig.projectsPage.tagline}</p>
-      <div className="repos-container">
-        {repos.map((repo, index) =>
-          repo.fork ? (
-            <ForkedRepoCard 
-              key={repo.id} 
-              repo={repo} 
-              index={index} 
-              githubUsername={githubUsername}
-            />
-          ) : (
-            <RepoCard key={repo.id} repo={repo} index={index} />
-          )
-        )}
-      </div>
+      {loading && repos.length === 0 ? (
+        <p className="muted">Loading projects...</p>
+      ) : (
+        <div className="repos-container">
+          {repos.map((repo, index) =>
+            repo.fork ? (
+              <ForkedRepoCard 
+                key={repo.id} 
+                repo={repo} 
+                index={index} 
+              />
+            ) : (
+              <RepoCard key={repo.id} repo={repo} index={index} />
+            )
+          )}
+        </div>
+      )}
     </main>
   );
 }
