@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
 :root,
 :root.light,
 [data-theme="light"] {
@@ -18,6 +16,9 @@
   --shadow:
     rgba(15, 23, 42, 0.08) 0 10px 15px -3px,
     rgba(37, 99, 235, 0.04) 0 4px 6px -2px;
+  --shadow-hover:
+    rgba(15, 23, 42, 0.12) 0 16px 32px -6px,
+    rgba(37, 99, 235, 0.15) 0 0 20px;
   --nav-bg: rgba(248, 250, 252, 0.85);
   --nav-border: rgba(15, 23, 42, 0.08);
   --nav-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
@@ -33,12 +34,6 @@
     "SF Pro Display", "SF Pro", sans-serif;
   --mono: "JetBrains Mono", "Fira Code", "SF Mono",
     ui-monospace, Menlo, Monaco, Consolas, monospace;
-  font: 18px/145% var(--sans);
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -58,6 +53,9 @@
     --shadow:
       rgba(0, 0, 0, 0.7) 0 10px 25px -3px,
       rgba(79, 135, 255, 0.08) 0 4px 10px -2px;
+    --shadow-hover:
+      rgba(0, 0, 0, 0.8) 0 16px 36px -4px,
+      rgba(79, 135, 255, 0.2) 0 0 24px;
     --card-surface: rgba(8, 14, 29, 0.85);
     --card-border-base: rgba(79, 135, 255, 0.15);
     --nav-bg: rgba(3, 7, 18, 0.9);
@@ -86,6 +84,9 @@
   --shadow:
     rgba(0, 0, 0, 0.7) 0 10px 25px -3px,
     rgba(79, 135, 255, 0.08) 0 4px 10px -2px;
+  --shadow-hover:
+    rgba(0, 0, 0, 0.8) 0 16px 36px -4px,
+    rgba(79, 135, 255, 0.2) 0 0 24px;
   --card-surface: rgba(8, 14, 29, 0.85);
   --card-border-base: rgba(79, 135, 255, 0.15);
   --nav-bg: rgba(3, 7, 18, 0.9);
@@ -96,55 +97,59 @@
   --nav-pill-text: #4f87ff;
 }
 
-#root {
-  display: flex;
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  align-items: center;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+*, *::before, *::after {
   box-sizing: border-box;
-  overflow-y: scroll;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
+  padding: 0;
+  font-family: var(--sans);
+  color: var(--text);
+  background-color: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
-h1,
-h2 {
+#root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading);
-  font-weight: 500;
   color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+  margin: 0;
 }
 
 p {
   margin: 0;
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
 }
 
 code,
@@ -160,4 +165,23 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.45);
 }

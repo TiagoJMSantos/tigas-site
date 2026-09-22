@@ -127,7 +127,7 @@ export function Home() {
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                <AiOutlineDownload style={{ fontSize: "1.4vw" }} /> {personal.cv.buttonText}
+                <AiOutlineDownload className="home-cv-icon" /> {personal.cv.buttonText}
               </a>
             )}
           </div>
