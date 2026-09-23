@@ -157,10 +157,10 @@ export const siteConfig: SiteConfig = {
   featuredProject: {
     tag: "Currently building / Skills",
     project: {
-      title: "CoreVault",
+      title: "Diana by Andromda",
       status: "In Development",
-      description: "An open-source, zero-knowledge password vault, built with two teammates. Your master password never leaves your device — all vault data is encrypted and decrypted locally before being synced to the cloud.",
-      githubUrl: "https://github.com/Vault-Foundation/CoreVault",
+      description: "An open-source, zero-knowledge meal planner, food storage database, built with three teammates.",
+      githubUrl: "https://github.com/AndromdaLabs/Diana",
       buttonText: "View on GitHub",
       technologies: ["TypeScript", "Rust", "PostgreSQL", "Docker"]
     }

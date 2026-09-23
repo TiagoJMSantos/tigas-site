@@ -1,22 +1,29 @@
 import { useState, useEffect } from 'react';
+import { AiOutlineGithub } from 'react-icons/ai';
+import {
+  LuExternalLink,
+  LuChevronRight,
+  LuFolderGit2,
+  LuGitFork,
+} from 'react-icons/lu';
 
 const COLOURS = [
-  '#3b82f6', 
-  '#10b981', 
-  '#8b5cf6', 
-  '#f97316', 
-  '#ec4899', 
-  '#06b6d4', 
-  '#eab308', 
-  '#ef4444', 
+  '#3b82f6',
+  '#10b981',
+  '#8b5cf6',
+  '#f97316',
+  '#ec4899',
+  '#06b6d4',
+  '#eab308',
+  '#ef4444',
   '#6366f1',
-  '#a855f7', 
-  '#0ea5e9', 
-  '#14b8a6', 
-  '#f43f5e', 
-  '#84cc16', 
-  '#2563eb', 
-  '#d946ef', 
+  '#a855f7',
+  '#0ea5e9',
+  '#14b8a6',
+  '#f43f5e',
+  '#84cc16',
+  '#2563eb',
+  '#d946ef',
 ];
 
 export interface Repo {
@@ -30,16 +37,6 @@ export interface Repo {
   };
   topics?: string[];
   originalOwner?: string;
-}
-
-interface RepoCardProps {
-  repo: Repo;
-  index: number;
-}
-
-interface ForkedCardProps {
-  repo: Repo;
-  index: number;
 }
 
 function useProjects() {
@@ -71,82 +68,81 @@ function useProjects() {
   return { repos, loading };
 }
 
-function RepoCard({ repo, index }: RepoCardProps) {
-  const accentColor = COLOURS[index % COLOURS.length];
-  return (
-    <a 
-      href={repo.html_url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="repo-card" 
-      style={{ '--accent-color': accentColor } as React.CSSProperties}
-    >
-      <div className="repo-card-top">
-        <h3>{repo.owner.login}/{repo.name}</h3>
-        {repo.description && <p className="repo-desc">{repo.description}</p>}
-      </div>
-      {repo.topics && repo.topics.length > 0 && (
-        <div className="repo-topics">
-          {repo.topics.map(topic => (
-            <span key={topic} className="repo-topic-pill">
-              #{topic}
-            </span>
-          ))}
-        </div>
-      )}
-    </a>
-  );
+interface ProjectCardProps {
+  repo: Repo;
+  index: number;
 }
 
-function ForkedRepoCard({ repo, index }: ForkedCardProps) {
+function ProjectCard({ repo, index }: ProjectCardProps) {
   const accentColor = COLOURS[index % COLOURS.length];
-  const owner = repo.originalOwner || repo.owner.login;
+
   return (
-    <a 
+    <a
       href={repo.html_url}
       target="_blank"
       rel="noopener noreferrer"
-      className="repo-card card-fork" 
+      className="repo-card"
       style={{ '--accent-color': accentColor } as React.CSSProperties}
     >
-      <div className="repo-card-top">
-        <h3>{owner}/{repo.name}</h3>
-        {repo.description && <p className="repo-desc">{repo.description}</p>}
-      </div>
-      {repo.topics && repo.topics.length > 0 && (
-        <div className="repo-topics">
-          {repo.topics.map(topic => (
-            <span key={topic} className="repo-topic-pill">
-              #{topic}
-            </span>
-          ))}
+      <div className="repo-card-header">
+        <div className="repo-card-icon">
+          {repo.fork ? <LuGitFork /> : <LuFolderGit2 />}
         </div>
-      )}
+        <h3 className="repo-card-name" title={repo.name}>
+          {repo.name}
+        </h3>
+      </div>
+
+      <div className="repo-card-body">
+        {repo.description ? (
+          <p className="repo-desc">{repo.description}</p>
+        ) : (
+          <p className="repo-desc repo-desc-empty" />
+        )}
+      </div>
+
+      <div className="repo-card-bottom-group">
+        <div className="repo-topics">
+          {repo.topics && repo.topics.length > 0 ? (
+            repo.topics.map(topic => (
+              <span key={topic} className="repo-topic-pill">
+                {topic}
+              </span>
+            ))
+          ) : null}
+        </div>
+
+        <div className="repo-card-footer">
+          <div className="repo-card-footer-left">
+            <AiOutlineGithub className="footer-gh-icon" />
+            <span>View on GitHub</span>
+            <LuExternalLink className="footer-ext-icon" />
+          </div>
+          <LuChevronRight className="footer-chevron" />
+        </div>
+      </div>
     </a>
   );
 }
 
 export function Project() {
   const { repos, loading } = useProjects();
+
   return (
-    <main>
+    <main className="projects-page-main">
       {loading && repos.length === 0 ? (
         <p className="muted">Loading projects...</p>
       ) : (
         <div className="repos-container">
-          {repos.map((repo, index) =>
-            repo.fork ? (
-              <ForkedRepoCard 
-                key={repo.id} 
-                repo={repo} 
-                index={index} 
-              />
-            ) : (
-              <RepoCard key={repo.id} repo={repo} index={index} />
-            )
-          )}
+          {repos.map((repo, index) => (
+            <ProjectCard key={repo.id} repo={repo} index={index} />
+          ))}
         </div>
       )}
     </main>
   );
 }
+
+
+
+
