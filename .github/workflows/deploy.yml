@@ -42,6 +42,7 @@ jobs:
       - name: Fetch projects data
         run: npm run fetch-projects
         env:
+          GITHUB_USERNAME: TiagoJMSantos
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build project
