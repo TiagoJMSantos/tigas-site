@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { AiOutlineGithub, AiFillLinkedin, AiOutlineMail, AiOutlineDownload, AiOutlineCheck } from "react-icons/ai";
 import { 
   LuGraduationCap, 
@@ -6,21 +6,24 @@ import {
   LuLeaf, 
   LuDatabase, 
   LuWrench, 
-  LuSparkles, 
-  LuExternalLink, 
-  LuFolderGit2 
+  LuSparkles
 } from "react-icons/lu";
 import siteConfig from "../config";
+import { featuredProjects } from "../data/featuredProjects";
+import type { FeaturedProjectItem } from "../data/featuredProjects";
+import { FeaturedProjectCard, ProjectModal } from "../components";
 
 export function Home() {
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<FeaturedProjectItem | null>(null);
+  const triggerRefs = useRef<{ [key: string]: HTMLElement | null }>({});
+  const lastActiveTrigger = useRef<HTMLElement | null>(null);
 
   const { 
     personal, 
     socials, 
     terminal, 
     about, 
-    featuredProject, 
     skills 
   } = siteConfig;
 
@@ -45,6 +48,11 @@ export function Home() {
     } catch (err) {
       console.error("Failed to copy email:", err);
     }
+  };
+
+  const handleSelectProject = (project: FeaturedProjectItem) => {
+    lastActiveTrigger.current = triggerRefs.current[project.id] || null;
+    setSelectedProject(project);
   };
 
   const renderAboutIcon = (iconType: string) => {
@@ -221,78 +229,81 @@ export function Home() {
         </div>
       </section>
 
-      {/* Projects & Skills Section */}
-      <section id="projects-section">
-        <div className="project-tag">
-          <span className="section-dash">—</span> {featuredProject.tag}
-        </div>
-        <div className="proj-bottom-container">
-          {/* Left Column: Featured Project */}
-          <div className="single-project-container">
-            <div className="sproj-header">
-              <div className="sproj-icon">
-                <LuFolderGit2 />
-              </div>
-              <div className="sproj-title-indev">
-                <h3>{featuredProject.project.title}</h3>
-                <span className="sproj-status">{featuredProject.project.status}</span>
-              </div>
-            </div>
-
-            <div className="sproj-description">
-              <p>{featuredProject.project.description}</p>
-            </div>
-
-            {featuredProject.project.technologies && featuredProject.project.technologies.length > 0 && (
-              <div className="sproj-tags">
-                {featuredProject.project.technologies.map((tech, idx) => (
-                  <span key={idx} className="sproj-tech-tag">{tech}</span>
-                ))}
-              </div>
-            )}
-
-            <div className="sproj-spacer" />
-
-            <div className="sproj-buttons">
-              <a 
-                className="sproj-github-button"
-                href={featuredProject.project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <AiOutlineGithub className="sproj-btn-icon" />
-                {featuredProject.project.buttonText}
-                <LuExternalLink className="sproj-btn-arrow" />
-              </a>
-            </div>
+      {/* Featured Projects Section */}
+      <section id="featured-projects-section" aria-labelledby="featured-projects-title">
+        <div className="section-header-group">
+          <div className="project-tag">
+            <span className="section-dash">—</span> FEATURED PROJECTS
           </div>
+          <h2 id="featured-projects-title" className="section-main-heading">
+            Featured Projects
+          </h2>
+          <p className="section-main-subtitle">
+            Selected engineering projects exploring systems, software architecture and practical problem-solving.
+          </p>
+        </div>
 
-          {/* Right Column: Skills */}
-          <div className="skills-cards-container">
-            {skills.map((cat, idx) => (
-              <div key={cat.id} className="skills-container" id={`skill-${cat.id}`}>
-                <div className="skills-card">
-                  <div className="skills-logo">
-                    {renderSkillCategoryIcon(idx)}
+        <div className="featured-projects-grid">
+          {featuredProjects.map((project) => (
+            <div
+              key={project.id}
+              ref={(el) => { triggerRefs.current[project.id] = el; }}
+              className="featured-card-wrapper"
+            >
+              <FeaturedProjectCard
+                project={project}
+                onSelect={handleSelectProject}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Technical Skills Section */}
+      <section id="skills-section" aria-labelledby="skills-section-title">
+        <div className="section-header-group">
+          <div className="project-tag">
+            <span className="section-dash">—</span> TECHNICAL SKILLS
+          </div>
+          <h2 id="skills-section-title" className="section-main-heading">
+            Core Technologies & Tooling
+          </h2>
+          <p className="section-main-subtitle">
+            Languages, database engines, systems tools and architectural domains actively applied across projects.
+          </p>
+        </div>
+
+        <div className="skills-grid-container">
+          {skills.map((cat, idx) => (
+            <div key={cat.id} className="skills-container" id={`skill-${cat.id}`}>
+              <div className="skills-card">
+                <div className="skills-logo">
+                  {renderSkillCategoryIcon(idx)}
+                </div>
+                <div className="skills-info">
+                  <div className="skills-title">
+                    {cat.title}
                   </div>
-                  <div className="skills-info">
-                    <div className="skills-title">
-                      {cat.title}
-                    </div>
-                    <div className="skills-tags-list">
-                      {cat.skills.map((skill, sIdx) => (
-                        <span key={sIdx} className="skill-pill">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="skills-tags-list">
+                    {cat.skills.map((skill, sIdx) => (
+                      <span key={sIdx} className="skill-pill">
+                        {skill}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
+
+      {/* Project Detail Modal */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+        triggerRef={lastActiveTrigger}
+      />
     </main>
   );
 }

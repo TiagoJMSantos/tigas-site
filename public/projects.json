@@ -1,62 +1,5 @@
 [
   {
-    "id": 1095773412,
-    "name": "ScrabblePY",
-    "html_url": "https://github.com/TiagoJMSantos/ScrabblePY",
-    "description": "A text-based adaptation of the classic Scrabble game built in Python for 2-4 players. Features a custom 32-bit xorshift pseudo-random number generator and Fisher-Yates shuffling. Developed for the Fundamentals of Programming course (2025/2026).",
-    "fork": false,
-    "owner": {
-      "login": "TiagoJMSantos"
-    },
-    "topics": [
-      "python",
-      "scrabble"
-    ]
-  },
-  {
-    "id": 1221828404,
-    "name": "MiniTransformerGPT",
-    "html_url": "https://github.com/TiagoJMSantos/MiniTransformerGPT",
-    "description": "A simplified \"ChatGPT-like\" Transformer model built from scratch in RISC-V Assembly, alongside a custom 16-bit processor designed in Logisim with hardware acceleration for AI vector operations. Developed for the Introduction to Computer Architecture course (2025/2026).",
-    "fork": false,
-    "owner": {
-      "login": "TiagoJMSantos"
-    },
-    "topics": [
-      "assembly",
-      "logisim",
-      "processor-architecture"
-    ]
-  },
-  {
-    "id": 1319509680,
-    "name": "tigas-site",
-    "html_url": "https://github.com/TiagoJMSantos/tigas-site",
-    "description": "Personal Website",
-    "fork": false,
-    "owner": {
-      "login": "TiagoJMSantos"
-    },
-    "topics": [
-      "react",
-      "typescript"
-    ]
-  },
-  {
-    "id": 1176659455,
-    "name": "logistics-billing-engine",
-    "html_url": "https://github.com/TiagoJMSantos/logistics-billing-engine",
-    "description": "A command-line invoicing and product management system built in C. Features dynamic memory allocation, EAN code validation, and shopping cart logic. Developed for the Algorithms and Data Structures (IAED) course, 2025/2026.",
-    "fork": false,
-    "owner": {
-      "login": "TiagoJMSantos"
-    },
-    "topics": [
-      "algorithms-and-data-structures",
-      "c"
-    ]
-  },
-  {
     "id": 1368855658,
     "name": "neetcode-submissions",
     "html_url": "https://github.com/TiagoJMSantos/neetcode-submissions",
@@ -68,10 +11,48 @@
     "topics": []
   },
   {
-    "id": 1231791204,
-    "name": "Spotdark",
-    "html_url": "https://github.com/TiagoJMSantos/Spotdark",
-    "description": "App launcher inspired by Apple's Spotlight made in C++ running in a terminal",
+    "id": 1319509680,
+    "name": "tigas-site",
+    "html_url": "https://github.com/TiagoJMSantos/tigas-site",
+    "description": "Personal portfolio website built with React, TypeScript and Vite, showcasing my projects, background and ongoing work.",
+    "fork": false,
+    "owner": {
+      "login": "TiagoJMSantos"
+    },
+    "topics": [
+      "react",
+      "typescript"
+    ]
+  },
+  {
+    "id": 1217219572,
+    "name": "yoda-notify",
+    "html_url": "https://github.com/TiagoJMSantos/yoda-notify",
+    "description": "A customizable FiveM notification system with a clean NUI interface and support for multiple notification types.",
+    "fork": true,
+    "owner": {
+      "login": "TiagoJMSantos"
+    },
+    "topics": [],
+    "originalOwner": "Yoda-Things"
+  },
+  {
+    "id": 1083315554,
+    "name": "yoda-tasks",
+    "html_url": "https://github.com/TiagoJMSantos/yoda-tasks",
+    "description": "A FiveM task interface supporting simple notifications and progress-based tasks with customizable styling.",
+    "fork": true,
+    "owner": {
+      "login": "TiagoJMSantos"
+    },
+    "topics": [],
+    "originalOwner": "Yoda-Things"
+  },
+  {
+    "id": 833337392,
+    "name": "TiagoJMSantos",
+    "html_url": "https://github.com/TiagoJMSantos/TiagoJMSantos",
+    "description": "ReadMe for profile page",
     "fork": false,
     "owner": {
       "login": "TiagoJMSantos"
@@ -79,15 +60,47 @@
     "topics": []
   },
   {
-    "id": 833337392,
-    "name": "TiagoJMSantos",
-    "html_url": "https://github.com/TiagoJMSantos/TiagoJMSantos",
-    "description": null,
+    "id": 1095773412,
+    "name": "ScrabblePY",
+    "html_url": "https://github.com/TiagoJMSantos/ScrabblePY",
+    "description": "A text-based Scrabble game for 2–4 players, built in Python with a custom PRNG and Fisher–Yates shuffling.",
     "fork": false,
     "owner": {
       "login": "TiagoJMSantos"
     },
-    "topics": []
+    "topics": [
+      "python",
+      "scrabble"
+    ]
+  },
+  {
+    "id": 1176659455,
+    "name": "logistics-billing-engine",
+    "html_url": "https://github.com/TiagoJMSantos/logistics-billing-engine",
+    "description": "A C command-line system for logistics, invoicing and product management, featuring dynamic memory, EAN validation and shopping cart logic.",
+    "fork": false,
+    "owner": {
+      "login": "TiagoJMSantos"
+    },
+    "topics": [
+      "algorithms-and-data-structures",
+      "c"
+    ]
+  },
+  {
+    "id": 1221828404,
+    "name": "MiniTransformerGPT",
+    "html_url": "https://github.com/TiagoJMSantos/MiniTransformerGPT",
+    "description": "A simplified Transformer model implemented in RISC-V Assembly, paired with a custom 16-bit processor designed in Logisim.",
+    "fork": false,
+    "owner": {
+      "login": "TiagoJMSantos"
+    },
+    "topics": [
+      "assembly",
+      "logisim",
+      "processor-architecture"
+    ]
   },
   {
     "id": 285931146,
@@ -101,33 +114,9 @@
     "topics": []
   },
   {
-    "id": 1217219572,
-    "name": "yoda-notify",
-    "html_url": "https://github.com/TiagoJMSantos/yoda-notify",
-    "description": null,
-    "fork": true,
-    "owner": {
-      "login": "TiagoJMSantos"
-    },
-    "topics": [],
-    "originalOwner": "Yoda-Things"
-  },
-  {
     "id": 1092902823,
     "name": "yoda-cemetery-robbery",
     "html_url": "https://github.com/TiagoJMSantos/yoda-cemetery-robbery",
-    "description": null,
-    "fork": true,
-    "owner": {
-      "login": "TiagoJMSantos"
-    },
-    "topics": [],
-    "originalOwner": "Yoda-Things"
-  },
-  {
-    "id": 1083315554,
-    "name": "yoda-tasks",
-    "html_url": "https://github.com/TiagoJMSantos/yoda-tasks",
     "description": null,
     "fork": true,
     "owner": {

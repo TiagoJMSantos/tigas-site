@@ -95,22 +95,24 @@ function ProjectCard({ repo, index }: ProjectCardProps) {
 
       <div className="repo-card-body">
         {repo.description ? (
-          <p className="repo-desc">{repo.description}</p>
+          <p className="repo-desc" title={repo.description}>
+            {repo.description}
+          </p>
         ) : (
           <p className="repo-desc repo-desc-empty" />
         )}
       </div>
 
       <div className="repo-card-bottom-group">
-        <div className="repo-topics">
-          {repo.topics && repo.topics.length > 0 ? (
-            repo.topics.map(topic => (
+        {repo.topics && repo.topics.length > 0 ? (
+          <div className="repo-topics">
+            {repo.topics.map(topic => (
               <span key={topic} className="repo-topic-pill">
                 {topic}
               </span>
-            ))
-          ) : null}
-        </div>
+            ))}
+          </div>
+        ) : null}
 
         <div className="repo-card-footer">
           <div className="repo-card-footer-left">

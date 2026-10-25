@@ -34,20 +34,39 @@ export interface ProjectItem {
   originalOwner?: string;
 }
 
-const GITHUB_USERNAME = process.env.GITHUB_USERNAME || 'TiagoJMSantos';
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const OUTPUT_DIR = path.resolve(process.cwd(), 'public');
 const OUTPUT_FILE = path.join(OUTPUT_DIR, 'projects.json');
 
-function getHeaders(): Record<string, string> {
+async function loadEnv(): Promise<void> {
+  const envPath = path.resolve(process.cwd(), '.env');
+  try {
+    const envContent = await fs.readFile(envPath, 'utf-8');
+    for (const line of envContent.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const equalsIdx = trimmed.indexOf('=');
+      if (equalsIdx !== -1) {
+        const key = trimmed.slice(0, equalsIdx).trim();
+        const value = trimmed.slice(equalsIdx + 1).trim().replace(/^['"]|['"]$/g, '');
+        if (!process.env[key] && value) {
+          process.env[key] = value;
+        }
+      }
+    }
+  } catch {
+    // .env not present or readable
+  }
+}
+
+function getHeaders(token?: string): Record<string, string> {
   const headers: Record<string, string> = {
     Accept: 'application/vnd.github+json',
     'User-Agent': 'tigas-site-fetcher',
     'X-GitHub-Api-Version': '2022-11-28',
   };
 
-  if (GITHUB_TOKEN) {
-    headers.Authorization = `Bearer ${GITHUB_TOKEN}`;
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
   }
 
   return headers;
@@ -62,10 +81,10 @@ async function fileExists(filePath: string): Promise<boolean> {
   }
 }
 
-async function fetchForkOwner(repoName: string): Promise<string | undefined> {
+async function fetchForkOwner(repoName: string, username: string, token?: string): Promise<string | undefined> {
   try {
-    const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${repoName}`;
-    const response = await fetch(url, { headers: getHeaders() });
+    const url = `https://api.github.com/repos/${username}/${repoName}`;
+    const response = await fetch(url, { headers: getHeaders(token) });
     if (!response.ok) {
       console.warn(`[fetch-projects] Warning: Failed to fetch fork details for ${repoName} (${response.status} ${response.statusText})`);
       return undefined;
@@ -79,8 +98,19 @@ async function fetchForkOwner(repoName: string): Promise<string | undefined> {
 }
 
 async function main(): Promise<void> {
-  console.log(`[fetch-projects] Starting repository sync for user: "${GITHUB_USERNAME}"...`);
-  if (GITHUB_TOKEN) {
+  await loadEnv();
+
+  const username = process.env.GITHUB_USERNAME;
+  const token = process.env.GITHUB_TOKEN;
+
+  if (!username) {
+    throw new Error(
+      '[fetch-projects] GITHUB_USERNAME is not defined. Please create a .env file based on .env.example and set GITHUB_USERNAME.'
+    );
+  }
+
+  console.log(`[fetch-projects] Starting repository sync for user: "${username}"...`);
+  if (token) {
     console.log('[fetch-projects] GitHub Token detected, authenticated requests will be used.');
   } else {
     console.log('[fetch-projects] No GitHub Token provided. Requests will be unauthenticated (subject to standard rate limit).');
@@ -88,10 +118,10 @@ async function main(): Promise<void> {
 
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
 
-  const reposUrl = `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`;
+  const reposUrl = `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`;
 
   try {
-    const response = await fetch(reposUrl, { headers: getHeaders() });
+    const response = await fetch(reposUrl, { headers: getHeaders(token) });
 
     if (!response.ok) {
       const remainingRateLimit = response.headers.get('x-ratelimit-remaining');
@@ -135,7 +165,7 @@ async function main(): Promise<void> {
 
       if (repo.fork) {
         console.log(`[fetch-projects] Resolving fork parent for ${repo.name}...`);
-        originalOwner = await fetchForkOwner(repo.name);
+        originalOwner = await fetchForkOwner(repo.name, username, token);
       }
 
       projects.push({
