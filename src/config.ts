@@ -91,8 +91,10 @@ export const siteConfig: SiteConfig = {
     name: "Tiago Santos",
     nickname: "Tigas",
     tagline: "Computer Science & Engineering Student",
-    bioParagraph1: "Second-year Computer Science & Engineering student at Instituto Superior Técnico. I co-founded Yoda Things with a small team — we build and sell multiplayer game-server backends in Lua and MySQL, and most of what I actually know about systems came from keeping that running under real load.",
-    bioParagraph2: "The other projects here — MiniTransformerGPT (a group university assignment, RISC-V assembly + a custom processor in Logisim) and a billing engine in C — were coursework, but the systems side of them is genuinely what I'm into, not just something I did because I had to.",
+    bioParagraph1:
+    "Second-year Computer Science & Engineering student at Instituto Superior Técnico. I co-founded Yoda Things in June 2024, where I develop and maintain Lua scripts for multiplayer game servers, with MySQL-backed persistence. My work involves implementing server-side features, managing game state, and keeping scripts reliable as the project evolves. I also contributed to the Saga server, which supported up to 100 concurrent players.",
+    bioParagraph2:
+    "Alongside this, I work on university projects involving C/POSIX, Java, databases, and software architecture. I enjoy building software that is practical, maintainable, and able to handle real requirements, and I am currently looking to grow as a software engineer through challenging projects and experienced teams.",
     cv: {
       file: cvPdf,
       downloadName: "Tiago_Santos_SWE_Intern_Resume.pdf",
@@ -125,11 +127,11 @@ export const siteConfig: SiteConfig = {
 
   about: {
     tag: "ABOUT ME",
-    heading: "Passionate about systems, clean code & architecture.",
+    heading: "Interested in building reliable software. Making it better.",
     paragraphs: [
-      "I like understanding how things work under the hood more than using them as a black box — that's what keeps me at Yoda Things past the point anyone required it, working through it with my co-founders.",
-      "The university assignments on this site (MiniTransformerGPT, done in a group, and a billing engine in C) are here because I leaned into the systems side of them harder than the grade required — not because they were solo passion projects."
-    ],
+      "I enjoy understanding how software works in practice and turning requirements into working, maintainable code. My experience so far is mainly in backend development, server-side scripting, databases, and systems-oriented university projects.",
+    "Outside university, I co-founded Yoda Things, where I develop Lua scripts for multiplayer game servers and work with MySQL-backed data. At university, I have also worked on projects involving C/POSIX, Java, software architecture, and processor design."
+  ],
     cards: [
       {
         id: "education",
@@ -143,7 +145,7 @@ export const siteConfig: SiteConfig = {
         id: "focus",
         icon: "focus",
         title: "Focus & Goal",
-        desc: "Get better at backend and systems engineering, and find a team where I can learn from people more experienced than me."
+        desc: "Grow as a software engineer, particularly in backend development, databases, and reliable software."
       },
       {
         id: "learning",
@@ -162,7 +164,7 @@ export const siteConfig: SiteConfig = {
       description: "An open-source, zero-knowledge meal planner, food storage database, built with three teammates.",
       githubUrl: "https://github.com/AndromdaLabs/Diana",
       buttonText: "View on GitHub",
-      technologies: ["TypeScript", "Rust", "PostgreSQL", "Docker"]
+      technologies: ["TypeScript", "Rust", "SQLite", "Docker"]
     }
   },
 
@@ -175,12 +177,12 @@ export const siteConfig: SiteConfig = {
     {
       id: "backend",
       title: "Backend & Databases",
-      skills: ["MySQL", "PostgreSQL"]
+      skills: ["MySQL"]
     },
     {
       id: "tools",
       title: "Tools & Frameworks",
-      skills: ["Git", "Docker", "Linux", "React", "Vite"]
+      skills: ["Git", "Docker", "Linux", "React", "Vite", "Valgrind"]
     },
     {
       id: "learning",

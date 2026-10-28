@@ -191,7 +191,7 @@ export const featuredProjects: FeaturedProjectItem[] = [
       ],
     },
     techStack: ['C', 'Make', 'Valgrind', 'GCC', 'Data Structures', 'Algorithms'],
-    academicContext: 'Coursework at Instituto Superior Técnico (Algorithms and Data Structures / AED).',
+    academicContext: 'Coursework at Instituto Superior Técnico (Algorithms and Data Structures / IAED).',
     links: [
       {
         label: 'View on GitHub',
@@ -247,7 +247,7 @@ export const featuredProjects: FeaturedProjectItem[] = [
       ],
     },
     techStack: ['Java', 'Object-Oriented Programming', 'UML', 'Design Patterns'],
-    academicContext: 'Coursework at Instituto Superior Técnico (Object-Oriented Programming / POO).',
+    academicContext: 'Coursework at Instituto Superior Técnico (Object-Oriented Programming / PO).',
     links: [
       {
         label: 'Academic project in design phase (Private repository)',
