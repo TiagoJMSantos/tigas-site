@@ -203,7 +203,7 @@ export const featuredProjects: FeaturedProjectItem[] = [
   {
     id: 'erplatform',
     title: 'ERPlatform',
-    status: 'Design Phase / In Progress',
+    status: 'In Progress',
     technologies: ['Java', 'Object-Oriented Programming', 'UML'],
     shortDescription:
       'An academic retail platform project modelling products, companies, customers, shopping carts, purchases, orders and notifications.',
